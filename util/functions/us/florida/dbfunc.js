@@ -1,5 +1,12 @@
 const connection = require('../../../db')
 
+function fixDate(date) {
+    console.log(date)
+    // console.log(date)
+
+    return date
+}
+
 // Select ALL numbers from evening table in FLFant5
 async function selectAllFromF5Eve() {
     return new Promise((resolve, reject) => {
@@ -42,10 +49,82 @@ async function selectDataByNumbEve(sequence) {
     })
 }
 
+async function getLatestEntryEve () {
+    return new Promise((resolve, reject) => {
+
+        try {
+            connection.query('SELECT * FROM evening WHERE id=(SELECT max(id) FROM evening)', [], (err, rows) => {
+
+                if (err) throw err
+
+                console.log(rows, ' si dates')
+                resolve({
+                    success: true,
+                    result: {
+                        date: fixDate(rows[0].date),
+                        sequence: rows[0].sequence,
+                        numbers: {
+                            n1: rows[0].n1,
+                            n2: rows[0].n2,
+                            n3: rows[0].n3,
+                            n4: rows[0].n4,
+                            n5: rows[0].n5,
+                        },
+                        jackpot: rows[0].jackpot
+                    },
+                })
+            })
+        }
+
+        catch (error) {
+            console.log(error)
+        }
+
+    })
+
+}
+
+async function getLatestEntryMid () {
+    return new Promise((resolve, reject) => {
+
+        try {
+            connection.query('SELECT * FROM midday WHERE id=(SELECT max(id) FROM midday)', [], (err, rows) => {
+
+                if (err) throw err
+
+                console.log(rows, ' si dates')
+                resolve({
+                    success: true,
+                    result: {
+                        date: fixDate(rows[0].date),
+                        sequence: rows[0].sequence,
+                        numbers: {
+                            n1: rows[0].n1,
+                            n2: rows[0].n2,
+                            n3: rows[0].n3,
+                            n4: rows[0].n4,
+                            n5: rows[0].n5,
+                        },
+                        jackpot: rows[0].jackpot
+                    },
+                })
+            })
+        }
+
+        catch (error) {
+            console.log(error)
+        }
+
+    })
+
+}
+
 module.exports = { 
     selectDataByNumbMid,
     selectAllFromF5Mid,
     selectAllFromF5Eve,
-    selectDataByNumbEve
+    selectDataByNumbEve,
+    getLatestEntryEve,
+    getLatestEntryMid
 }
 
