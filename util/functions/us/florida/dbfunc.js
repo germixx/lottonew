@@ -119,12 +119,30 @@ async function getLatestEntryMid () {
 
 }
 
+
+async function getResultsByCount(session, number) {
+    
+    let quer = "SELECT * FROM (SELECT * FROM " + session + " ORDER BY id DESC LIMIT ? ) sub ORDER BY id ASC";
+
+    return new Promise((resolve, reject) => {
+        connection.query(quer, [ parseInt(number)], (err, rows) => {
+            
+            if (err) throw err
+
+            resolve({ status: true, rows })
+        })
+        // resolve(true)
+    })
+}
+
+
 module.exports = { 
     selectDataByNumbMid,
     selectAllFromF5Mid,
     selectAllFromF5Eve,
     selectDataByNumbEve,
     getLatestEntryEve,
-    getLatestEntryMid
+    getLatestEntryMid,
+    getResultsByCount
 }
 

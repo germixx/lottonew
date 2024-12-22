@@ -2,7 +2,7 @@
 ## Writes each page to file
 from PyPDF2 import PdfReader
 
-reader = PdfReader("numbas.pdf")
+reader = PdfReader("ff.pdf")
 
 pdf_text = []
 

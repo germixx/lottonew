@@ -1,11 +1,15 @@
-import os
+# import os
 
-print(os.path.abspath("test"))
+from functions.handleDayNumbers import dayNumbers
 
-
-DB_FILE = os.path.abspath("dbs.py")
-LOGS_FILE = os.path.abspath('logs.txt')
+# print(os.path.abspath("test"))
 
 
-print(DB_FILE, ' is')
-print(LOGS_FILE, ' log')
+# DB_FILE = os.path.abspath("dbs.py")
+# LOGS_FILE = os.path.abspath('logs.txt')
+
+
+# print(DB_FILE, ' is')
+# print(LOGS_FILE, ' log')
+
+dayNumbers()
