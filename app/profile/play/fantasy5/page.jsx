@@ -1,6 +1,11 @@
 'use client';
 import Loading from '../../../../components/Loading';
 import Filtered from '../../../../components/games/fantasy5/Filtered';
+import Doubles from '../../../../components/games/fantasy5/Doubles';
+import Triples from '../../../../components/games/fantasy5/Triples';
+import Patterns from '../../../../components/games/fantasy5/Patterns';
+import Subpatterns from '../../../../components/games/fantasy5/Subpatterns';
+
 import { useEffect, useState } from 'react';
 
 const Fantasy5 = () => {
@@ -12,6 +17,8 @@ const Fantasy5 = () => {
   const [currentCold, setCurrentCold] = useState([]);
   const [currentOverdue, setCurrentOverdue] = useState([]);
   const [currentRepeat, setCurrentRepeat] = useState([]);
+  const [predictions, setPredictions] = useState([]);
+  const [lines, setLines] = useState([]);
   const [winningNumbers, setWinningNumbers] = useState('');
   const [winningNumbersArr, setWinningNumbersArr] = useState([]);
   const [eveSessionData, setEveSessionData] = useState('');
@@ -22,7 +29,7 @@ const Fantasy5 = () => {
   const [showSubPatterns, setShowSubPatterns] = useState(false);
   const [showDoubles, setShowDoubles] = useState(false);
   const [showTriples, setShowTriples] = useState(false);
-  
+    
   const getData = (date) => {
     fetch(`/api/us/florida/officialSessionData`, {
       method: 'POST',
@@ -36,7 +43,7 @@ const Fantasy5 = () => {
       .then((json) => {
            
           if (json.ress.status) {
-            console.log(json.ress, ' is jsonsasas')
+            console.log(json.ress.data, ' si fstats')
             setSessionDate(json.ress.data.sessionDate);
             setCurrentHot(json.ress.data.games.fantasy5.midday.hot);
             setCurrentCold(json.ress.data.games.fantasy5.midday.cold);
@@ -47,9 +54,11 @@ const Fantasy5 = () => {
             setRecentResults(json.ress.data.games.fantasy5.midday.recentResults);
             setMidSessionData(json.ress.data.games.fantasy5.midday);
             setEveSessionData(json.ress.data.games.fantasy5.eve);
-            setSession('mid')
-            setIsLoading(false)
-            return true
+            setPredictions(json.ress.data.games.fantasy5.midday.predictions);
+            setLines(json.ress.data.games.fantasy5.midday.predictions);
+            setSession('mid');
+            setIsLoading(false);
+            return true;
 
           } else {
             let dt = new Date()
@@ -112,32 +121,32 @@ const Fantasy5 = () => {
             setShowTriples(false)
             break
         case 'patterns':
-            // setShowFiltered(false)
-            // setShowDoubles(false)
-            // setShowPattern(true)
-            // setShowSubPatterns(false)
-            // setShowTriples(false)
+            setShowFiltered(false)
+            setShowDoubles(false)
+            setShowPattern(true)
+            setShowSubPatterns(false)
+            setShowTriples(false)
             break
         case 'subPatterns':
-            // setShowFiltered(false)
-            // setShowDoubles(false)
-            // setShowPattern(false)
-            // setShowSubPatterns(true)
-            // setShowTriples(false)
+            setShowFiltered(false)
+            setShowDoubles(false)
+            setShowPattern(false)
+            setShowSubPatterns(true)
+            setShowTriples(false)
             break;
         case 'doubles':
-            // setShowFiltered(false)
-            // setShowDoubles(true)
-            // setShowPattern(false)
-            // setShowSubPatterns(false)
-            // setShowTriples(false)
+            setShowFiltered(false)
+            setShowDoubles(true)
+            setShowPattern(false)
+            setShowSubPatterns(false)
+            setShowTriples(false)
             break;
         case 'triples':
-            // setShowFiltered(false)
-            // setShowDoubles(false)
-            // setShowPattern(false)
-            // setShowSubPatterns(false)
-            // setShowTriples(true)
+            setShowFiltered(false)
+            setShowDoubles(false)
+            setShowPattern(false)
+            setShowSubPatterns(false)
+            setShowTriples(true)
             break;
     }
 
@@ -155,6 +164,8 @@ const Fantasy5 = () => {
       setWinningNumbers(eveSessionData.winningNumbers);
       setWinningNumbersArr(eveSessionData.winningNumbers.split('-'));
       setRecentResults(eveSessionData.recentResults);
+      setPredictions(eveSessionData.predictions);
+      setLines(eveSessionData.predictions);
       setSession('eve');
     }
 
@@ -168,9 +179,10 @@ const Fantasy5 = () => {
       setWinningNumbers(midSessionData.winningNumbers);
       setWinningNumbersArr(midSessionData.winningNumbers.split('-'));
       setRecentResults(midSessionData.recentResults);
+      setPredictions(midSessionData.predictions);
+      setLines(midSessionData.predictions);
       setSession('mid');
     }
-
 
   }
 
@@ -186,8 +198,17 @@ const Fantasy5 = () => {
           <span className={`${winningNumbersArr.includes(e.n1.toString()) ? "text-accent" : ""}`}>{e.n1}</span>-<span className={`${winningNumbersArr.includes(e.n2.toString()) ? "text-accent" : ""}`}>{e.n2}</span>-<span className={`${winningNumbersArr.includes(e.n3.toString()) ? "text-accent" : ""}`}>{e.n3}</span>-<span className={`${winningNumbersArr.includes(e.n4) ? "text-accent" : ""}`}>{e.n4.toString()}</span>-<span className={`${winningNumbersArr.includes(e.n5.toString()) ? "text-accent" : ""}`}>{e.n5}</span> 
           {/* <span>[{LFUNCTIONS.intoDelta(e.n1, e.n2, e.n3, e.n4, e.n5)}]</span> */}
       </div>
-})
+    })
   }
+
+  const mapLines = lines.map((e) => {
+
+    let temp = e.sequence.split('-')
+
+    return <div key={e.sequence}>
+        <span className={`${winningNumbersArr.includes(temp[0]) ? "selectedNum" : ""}`}>{temp[0]}</span>-<span className={`${winningNumbersArr.includes(temp[1]) ? "selectedNum" : ""}`}>{temp[1]}</span>-<span className={`${winningNumbersArr.includes(temp[2]) ? "selectedNum" : ""}`}>{temp[2]}</span>-<span className={`${winningNumbersArr.includes(temp[3]) ? "selectedNum" : ""}`}>{temp[3]}</span>-<span className={`${winningNumbersArr.includes(temp[4]) ? "selectedNum" : ""}`}>{temp[4]}</span> <span style={{ color: 'green' }}>{e.played ? '✔' : ''}</span> <span style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold' }}>{e.quickPick === true || e.quickPick === 'true' ? 'QP' : ''}</span>
+    </div>
+})
 
   return (
     <>
@@ -218,6 +239,7 @@ const Fantasy5 = () => {
                 <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 h-20 mb-4">
                       <div className="text-center leading-[3rem] sm:text-sm">Winning Numbers</div>
                       <div className='text-center sm:text-lg text-2xl font-bold'>{winningNumbers}</div>
+                      
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -321,14 +343,8 @@ const Fantasy5 = () => {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-4">
                   <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
-                    <div className="text-center row">
-                      <button className='w-1/5'>Filter</button>
-                      <button className='w-1/5'>Patterns</button>
-                      <button className='w-1/5'>Subpatterns</button>
-                      <button className='w-1/5'>Doubles</button>
-                      <button className='w-1/5'>Triples</button>
-                    </div>
-                    
+                    <div className="text-center">Predictions</div>
+                    <div className='text-center'>{mapLines}</div>
                   </div>
                   <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-72 md:h-72 overflow-scroll overflow-x-hidden">
                     <div className="text-center">Recent Results</div>
@@ -337,9 +353,23 @@ const Fantasy5 = () => {
                     </div>
                   </div>
                   <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
-                    <div className="text-center">Predictions</div>
+                    <div className="text-center row">
+                      <button onClick={() => toggleFiPaSuDuTri('filter')} className='w-1/5'>Filter</button>
+                      <button onClick={() => toggleFiPaSuDuTri('patterns')} className='w-1/5'>Patterns</button>
+                      <button onClick={() => toggleFiPaSuDuTri('subPatterns')} className='w-1/5'>Subpatterns</button>
+                      <button onClick={() => toggleFiPaSuDuTri('doubles')} className='w-1/5'>Doubles</button>
+                      <button onClick={() => toggleFiPaSuDuTri('triples')} className='w-1/5'>Triples</button>
+                    </div>
+                    <div>
+                    {
+                      showFiltered ? (<Filtered results={recentResults} key={recentResults} winningNumbersArr={winningNumbersArr} />) : (showPattern)
+                        ? (<Patterns results={recentResults} winningNumbersArr={winningNumbersArr} />) : (showSubPatterns)
+                            ? (<Subpatterns results={recentResults} winningNumbersArr={winningNumbersArr} />) : (showDoubles)
+                              ? (<Doubles results={recentResults} winningNumbersArr={winningNumbersArr} />) : (showTriples)
+                                ? (<Triples results={recentResults} winningNumbersArr={winningNumbersArr} />) : ('')
+                    }
+                    </div>
                   </div>
-
               </div>
             </main>
           </div>
