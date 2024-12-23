@@ -43,7 +43,7 @@ const Fantasy5 = () => {
       .then((json) => {
            
           if (json.ress.status) {
-            console.log(json.ress.data, ' si fstats')
+            
             setSessionDate(json.ress.data.sessionDate);
             setCurrentHot(json.ress.data.games.fantasy5.midday.hot);
             setCurrentCold(json.ress.data.games.fantasy5.midday.cold);
@@ -61,13 +61,13 @@ const Fantasy5 = () => {
             return true;
 
           } else {
-            let dt = new Date()
+            let dt = new Date();
 
-            dt.setDate(dt.getDate() - 1)
+            dt.setDate(dt.getDate() - 1);
   
-            let x = getData(dt.toLocaleDateString())
+            let x = getData(dt.toLocaleDateString());
             
-            setIsLoading(false)
+            setIsLoading(false);
             return false;
           }
   
@@ -80,7 +80,7 @@ const Fantasy5 = () => {
 
     (async()=>{
 
-        let x = await getData(new Date().toLocaleDateString())
+        let x = await getData(new Date().toLocaleDateString());
 
       })()
 
@@ -114,39 +114,39 @@ const Fantasy5 = () => {
 
     switch (val) {
         case 'filter':
-            setShowFiltered(true)
-            setShowDoubles(false)
-            setShowPattern(false)
-            setShowSubPatterns(false)
-            setShowTriples(false)
-            break
+            setShowFiltered(true);
+            setShowDoubles(false);
+            setShowPattern(false);
+            setShowSubPatterns(false);
+            setShowTriples(false);
+            break;
         case 'patterns':
-            setShowFiltered(false)
-            setShowDoubles(false)
-            setShowPattern(true)
-            setShowSubPatterns(false)
-            setShowTriples(false)
-            break
+            setShowFiltered(false);
+            setShowDoubles(false);
+            setShowPattern(true);
+            setShowSubPatterns(false);
+            setShowTriples(false);
+            break;
         case 'subPatterns':
-            setShowFiltered(false)
-            setShowDoubles(false)
-            setShowPattern(false)
-            setShowSubPatterns(true)
-            setShowTriples(false)
+            setShowFiltered(false);
+            setShowDoubles(false);
+            setShowPattern(false);
+            setShowSubPatterns(true);
+            setShowTriples(false);
             break;
         case 'doubles':
-            setShowFiltered(false)
-            setShowDoubles(true)
-            setShowPattern(false)
-            setShowSubPatterns(false)
-            setShowTriples(false)
+            setShowFiltered(false);
+            setShowDoubles(true);
+            setShowPattern(false);
+            setShowSubPatterns(false);
+            setShowTriples(false);
             break;
         case 'triples':
-            setShowFiltered(false)
-            setShowDoubles(false)
-            setShowPattern(false)
-            setShowSubPatterns(false)
-            setShowTriples(true)
+            setShowFiltered(false);
+            setShowDoubles(false);
+            setShowPattern(false);
+            setShowSubPatterns(false);
+            setShowTriples(true);
             break;
     }
 
@@ -191,7 +191,7 @@ const Fantasy5 = () => {
     
     resultz = recentResults.map(e => {
 
-      let tmp = e.sequence.split('-')
+      let tmp = e.sequence.split('-');
 
       return <div className="text-center" key={e.date}>
           {/* {e.sequence} */}
@@ -203,10 +203,10 @@ const Fantasy5 = () => {
 
   const mapLines = lines.map((e) => {
 
-    let temp = e.sequence.split('-')
+    let temp = e.sequence.split('-');
 
     return <div key={e.sequence}>
-        <span className={`${winningNumbersArr.includes(temp[0]) ? "selectedNum" : ""}`}>{temp[0]}</span>-<span className={`${winningNumbersArr.includes(temp[1]) ? "selectedNum" : ""}`}>{temp[1]}</span>-<span className={`${winningNumbersArr.includes(temp[2]) ? "selectedNum" : ""}`}>{temp[2]}</span>-<span className={`${winningNumbersArr.includes(temp[3]) ? "selectedNum" : ""}`}>{temp[3]}</span>-<span className={`${winningNumbersArr.includes(temp[4]) ? "selectedNum" : ""}`}>{temp[4]}</span> <span style={{ color: 'green' }}>{e.played ? '✔' : ''}</span> <span style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold' }}>{e.quickPick === true || e.quickPick === 'true' ? 'QP' : ''}</span>
+        <span className={`${winningNumbersArr.includes(temp[0]) ? "text-accent" : ""}`}>{temp[0]}</span>-<span className={`${winningNumbersArr.includes(temp[1]) ? "text-accent" : ""}`}>{temp[1]}</span>-<span className={`${winningNumbersArr.includes(temp[2]) ? "text-accent" : ""}`}>{temp[2]}</span>-<span className={`${winningNumbersArr.includes(temp[3]) ? "text-accent" : ""}`}>{temp[3]}</span>-<span className={`${winningNumbersArr.includes(temp[4]) ? "text-accent" : ""}`}>{temp[4]}</span> <span style={{ color: 'green' }}>{e.played ? '✔' : ''}</span> <span style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold' }}>{e.quickPick === true || e.quickPick === 'true' ? 'QP' : ''}</span>
     </div>
 })
 
@@ -352,7 +352,7 @@ const Fantasy5 = () => {
                       {resultz}
                     </div>
                   </div>
-                  <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
+                  <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72 overflow-scroll overflow-x-hidden">
                     <div className="text-center row">
                       <button onClick={() => toggleFiPaSuDuTri('filter')} className='w-1/5'>Filter</button>
                       <button onClick={() => toggleFiPaSuDuTri('patterns')} className='w-1/5'>Patterns</button>
@@ -360,9 +360,9 @@ const Fantasy5 = () => {
                       <button onClick={() => toggleFiPaSuDuTri('doubles')} className='w-1/5'>Doubles</button>
                       <button onClick={() => toggleFiPaSuDuTri('triples')} className='w-1/5'>Triples</button>
                     </div>
-                    <div>
+                    <div className='overflow-scroll overflow-x-hidden'>
                     {
-                      showFiltered ? (<Filtered results={recentResults} key={recentResults} winningNumbersArr={winningNumbersArr} />) : (showPattern)
+                      showFiltered ? (<Filtered results={recentResults} winningNumbersArr={winningNumbersArr} />) : (showPattern)
                         ? (<Patterns results={recentResults} winningNumbersArr={winningNumbersArr} />) : (showSubPatterns)
                             ? (<Subpatterns results={recentResults} winningNumbersArr={winningNumbersArr} />) : (showDoubles)
                               ? (<Doubles results={recentResults} winningNumbersArr={winningNumbersArr} />) : (showTriples)

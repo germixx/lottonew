@@ -34,8 +34,13 @@ const Filtered = (props) => {
 
     filtered = recentlyPlayedNumbers.map(e => (
 
-        <div key={e[0]}>
-            <span className={`${winningNumbersArr.includes(e[0]) ? "text-accent" : ""}`}>{e[0]}</span> : <span>{e[1]}</span>
+        <div className='flex text-center' key={e[0]}>
+            <div className='flex-1'>
+              <span className={`${winningNumbersArr.includes(e[0]) ? "text-accent" : ""}`}>{e[0]}</span> : <span>{e[1]}</span>
+            </div>
+            <div className='flex-1'>
+              <span className={`${winningNumbersArr.includes(e[0]) ? "text-accent" : ""}`}>{e[0]}</span> : <span>{e[1]}</span>
+            </div>
         </div>
 
     ))
@@ -43,7 +48,7 @@ const Filtered = (props) => {
 
   return (
     <div>
-      <h4 className='ctr'>Filtereds</h4>
+      <h4 className='text-center'>Filtered</h4>
       <div>{filtered}</div>
   </div>
   )
