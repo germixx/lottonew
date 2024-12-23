@@ -31,6 +31,14 @@ const Filtered = (props) => {
   }, [props]);
 
   if (recentlyPlayedNumbers.length > 0) {
+    
+    console.log(recentlyPlayedNumbers.length, 'si len' )
+    
+    // let len = recentlyPlayedNumbers.length;
+    // let numbers = recentlyPlayedNumbers;
+    // let firstCol = numbers.slice(0, recentlyPlayedNumbers.length / 2);
+    // let secondCol = firstCol.splice( numbers.length / 2, numbers.length);
+    // console.log(firstCol, secondCol, ' is colums')
 
     filtered = recentlyPlayedNumbers.map(e => (
 
