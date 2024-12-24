@@ -6,7 +6,7 @@ import LFUNCTIONS from '../../functions/florida/fantasy5';
 
 function Doubles(props) {
 
-    let doubless;
+    let doubless, doubless2;
     const [doubleState, setDoubleState] = useState([]);
     const [winningNumbersArr, setWinningNumbersArr] = useState([]);
 
@@ -29,7 +29,21 @@ function Doubles(props) {
 
     if (doubleState.length > 0) {
 
-        doubless = doubleState.map(e => (
+        let dbl = [...doubleState];
+
+        let firstCol = dbl.slice(0, dbl.length / 2);
+
+        let secondCol = dbl.slice(dbl.length / 2, dbl.length);
+
+        doubless = firstCol.map(e => (
+
+            <div key={e[0]}>
+                <span className={`${winningNumbersArr.includes(e[0]) ? "text-accent" : ""}`}>{e[0]}</span> : <span>{e[1]}</span>
+            </div>
+
+        ))
+
+        doubless2 = secondCol.map(e => (
 
             <div key={e[0]}>
                 <span className={`${winningNumbersArr.includes(e[0]) ? "text-accent" : ""}`}>{e[0]}</span> : <span>{e[1]}</span>
@@ -40,8 +54,15 @@ function Doubles(props) {
 
     return (
         <div>
-            <h4 className='ctr'>Doubles</h4>
-            <div>{doubless}</div>
+            <h4 className='text-center'>Doubles</h4>
+            <div className='flex text-center'>
+                <div className='flex-1'>
+                    {doubless}
+                </div>  
+                <div className='flex-1'>
+                    {doubless2}
+                </div>
+            </div>
         </div>
     )
 
