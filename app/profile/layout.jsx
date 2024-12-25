@@ -1,5 +1,5 @@
-import Header from '../components/Profile/Header';
-import Sidebar from '../components/Profile/Sidebar';
+import Header from '../../components/Profile/Header';
+import Sidebar from '../../components/Profile/Sidebar';
 
 export const metadata = {
   title: "Lottery Profile",

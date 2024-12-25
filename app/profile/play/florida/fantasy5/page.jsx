@@ -1,10 +1,10 @@
 'use client';
-import Loading from '../../../../components/Loading';
-import Filtered from '../../../../components/games/fantasy5/Filtered';
-import Doubles from '../../../../components/games/fantasy5/Doubles';
-import Triples from '../../../../components/games/fantasy5/Triples';
-import Patterns from '../../../../components/games/fantasy5/Patterns';
-import Subpatterns from '../../../../components/games/fantasy5/Subpatterns';
+import Loading from '../../../../../components/Loading';
+import Filtered from '../../../../../components/games/fantasy5/Filtered';
+import Doubles from '../../../../../components/games/fantasy5/Doubles';
+import Triples from '../../../../../components/games/fantasy5/Triples';
+import Patterns from '../../../../../components/games/fantasy5/Patterns';
+import Subpatterns from '../../../../../components/games/fantasy5/Subpatterns';
 
 import { useEffect, useState } from 'react';
 
@@ -24,6 +24,7 @@ const Fantasy5 = () => {
   const [eveSessionData, setEveSessionData] = useState('');
   const [midSessionData, setMidSessionData] = useState('');
   const [recentResults, setRecentResults] = useState('');
+  const [dataDisplayed, setDataDisplayed] = useState(false);
   const [showPattern, setShowPattern] = useState(false);
   const [showFiltered, setShowFiltered] = useState(true);
   const [showSubPatterns, setShowSubPatterns] = useState(false);
@@ -58,6 +59,7 @@ const Fantasy5 = () => {
             setLines(json.ress.data.games.fantasy5.midday.predictions);
             setSession('mid');
             setIsLoading(false);
+            setDataDisplayed(true);
             return true;
 
           } else {
@@ -201,14 +203,14 @@ const Fantasy5 = () => {
     })
   }
 
-  const mapLines = lines.map((e) => {
+  const mapLines = lines.map((e) => { 
 
     let temp = e.sequence.split('-');
 
     return <div key={e.sequence}>
         <span className={`${winningNumbersArr.includes(temp[0]) ? "text-accent" : ""}`}>{temp[0]}</span>-<span className={`${winningNumbersArr.includes(temp[1]) ? "text-accent" : ""}`}>{temp[1]}</span>-<span className={`${winningNumbersArr.includes(temp[2]) ? "text-accent" : ""}`}>{temp[2]}</span>-<span className={`${winningNumbersArr.includes(temp[3]) ? "text-accent" : ""}`}>{temp[3]}</span>-<span className={`${winningNumbersArr.includes(temp[4]) ? "text-accent" : ""}`}>{temp[4]}</span> <span style={{ color: 'green' }}>{e.played ? '✔' : ''}</span> <span style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold' }}>{e.quickPick === true || e.quickPick === 'true' ? 'QP' : ''}</span>
     </div>
-})
+  })
 
   return (
     <>
@@ -219,7 +221,7 @@ const Fantasy5 = () => {
               </main>
         </div>
       ) 
-      : (
+      : dataDisplayed ?(
         <div>
             <div className="antialiased">
               <main className="p-4 md:ml-64 h-auto pt-20">
@@ -234,12 +236,10 @@ const Fantasy5 = () => {
                       <span className='text-xl font-bold'>{sessionDate}</span>
                       <span  onClick={() => plus1Day()} className='mr-6 ml-1 font-bold mb-6 text-2xl hover:text-accent hover:cursor-pointer'>+</span>
                     </div>
-                    
                 </div>
                 <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 h-20 mb-4">
                       <div className="text-center leading-[3rem] sm:text-sm">Winning Numbers</div>
-                      <div className='text-center sm:text-lg text-2xl font-bold'>{winningNumbers}</div>
-                      
+                      <div className='text-center sm:text-lg text-2xl font-bold'>{winningNumbers}</div>                  
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -374,7 +374,15 @@ const Fantasy5 = () => {
             </main>
           </div>
         </div>
-      )}
+      ) : (
+        <div className="antialiased flex flex-row min-h-screen justify-center items-center">
+          <main className=" md:ml-64 h-auto pt-20">
+            <div>Nothing to display</div>
+          </main>
+        </div>  
+      )
+      
+      }
     
     </>
   )
