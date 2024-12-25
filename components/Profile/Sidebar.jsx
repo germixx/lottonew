@@ -1,4 +1,8 @@
 'use client';
+
+import Link from 'next/link';
+
+
 const Sidebar = () => {
 
   
@@ -37,6 +41,7 @@ const Sidebar = () => {
               type="button"
               className="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
               aria-controls="dropdown-pages"
+              onClick={() => alert('casds')}
               data-collapse-toggle="dropdown-pages"
             >
               <svg
@@ -52,9 +57,9 @@ const Sidebar = () => {
                   clipRule="evenodd"
                 ></path>
               </svg>
-              <span className="flex-1 ml-3 text-left whitespace-nowrap"
-                >Pages</span
-              >
+                <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                  Games
+                </span>
               <svg
                 aria-hidden="true"
                 className="w-6 h-6"
@@ -69,24 +74,27 @@ const Sidebar = () => {
                 ></path>
               </svg>
             </button>
-            <ul id="dropdown-pages" className="hidden py-2 space-y-2">
+            <ul id="dropdown-pages" className=" py-2 space-y-2">
               <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Settings</a>
+                <Link 
+                  href={'/profile/play/florida'} 
+                  className="hover:text-accent flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                  Florida 
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Kanban</a>
+                <Link 
+                  href={'/profile/play/powerball'} 
+                  className="hover:text-accent flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                  Powerball
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Calendar</a>
+                <Link 
+                  href={'/profile/play/megaMillions'} 
+                  className="hover:text-accent flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                    Mega Millions
+                </Link>
               </li>
             </ul>
           </li>
@@ -110,9 +118,9 @@ const Sidebar = () => {
                   clipRule="evenodd"
                 ></path>
               </svg>
-              <span className="flex-1 ml-3 text-left whitespace-nowrap"
-                >Sales</span
-              >
+              <span className="flex-1 ml-3 text-left whitespace-nowrap">
+                  Sales
+              </span>
               <svg
                 aria-hidden="true"
                 className="w-6 h-6"
@@ -508,7 +516,7 @@ const Sidebar = () => {
                       xlink:href="#a"
                     />
                   </svg> */}
-                  中文 (繁體)
+                  
                 </div>
               </a>
             </li>
