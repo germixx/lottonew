@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from pymongo import MongoClient
+# from pymongo import MongoClient
 
 from selenium import webdriver
 from selenium.webdriver import Chrome
@@ -11,7 +11,7 @@ options = Options()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 URL = "https://www.flalottery.com/games/draw-games/fantasy5"
 

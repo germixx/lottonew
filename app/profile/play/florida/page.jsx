@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import Loading from '../../../../components/Loading';
 
 import { useEffect, useState } from 'react';
@@ -23,6 +25,24 @@ const Florida = () => {
               <div className="antialiased">
                 <main className="p-4 md:ml-64 h-auto pt-20">
                   <div className='text-center text-2xl font-bold underline decoration-double'>FL Games</div>
+                  <div>
+                    
+                    <Link 
+                      href="/profile/play/florida/fantasy5"
+                      className="hover:text-accent underline"
+                    >
+                      Fantasy5
+                    </Link>
+                    
+                  </div><br />
+                  <div>
+                    <Link 
+                      href="/profile/play/florida/lotto"
+                      className="hover:text-accent underline"
+                    >
+                      Lotto
+                    </Link>
+                  </div>
                 </main>
                 </div>
               </div>  
