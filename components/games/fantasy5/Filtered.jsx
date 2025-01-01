@@ -54,7 +54,7 @@ const Filtered = (props) => {
 
   return (
     <div>
-      <h4 className='text-center'>Filtered</h4>
+      <h4 className='text-center underline'>Filtered</h4>
         <div className='flex text-center'>
           <div className='flex-1'>
           {filtered}

@@ -1,6 +1,8 @@
 # This script needs to run after midnight preferable in the wee hours after the latest Fantasy5 numbers 
 # have been drawn and queried by script
 
+import sys
+
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 
@@ -37,7 +39,18 @@ ff = db.official.find_one({'sessionDate': todaysDate })
 if (isinstance(ff, dict)):
     
     x=0
-    print('casdhlhasjdh')
+    print('Session already created. Exiting..')
+
+    file1 = open('/var/www/lottonew/scripts/Python/env/lotto/scripts/US/Florida/MongoSession/logs.txt', 'a')
+    s = "Script test successfully ran on " + "\n"
+  
+    # # Writing a string to file
+    file1.write(s) 
+    
+    # #Closing file
+    file1.close()
+    
+    sys.exit()
 else:
    
    # xsasdasd=0
@@ -124,11 +137,11 @@ res = db.official.insert_one(data)
 
 # Delete after testing
 # # # Opening a file
-# file1 = open('/home/jgoolsby/SSR/lotteryAlg/scripts/Python/env/lotto/logs.txt', 'a')
-# s = "Script successfully ran on " + "\n"
+# file1 = open('/var/www/lottonew/scripts/Python/env/lotto/scripts/US/Florida/MongoSession/logs.txt', 'a')
+# s = "Script test successfully ran on " + "\n"
   
-# # Writing a string to file
+# # # Writing a string to file
 # file1.write(s) 
     
-# #Closing file
+# # #Closing file
 # file1.close()

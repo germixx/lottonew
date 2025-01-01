@@ -24,7 +24,7 @@ def handleNums(data):
         daID = InsertIntoDB('lotto', obj )
 
         if type(daID) == int:
-
+            
             # Write new results to file
             writeNewFile(lds, DATA_FILE)
 

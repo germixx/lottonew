@@ -1,7 +1,7 @@
 const mongoDB = require('../../../../../util/mongodb')
 
 const getSessionData = (date) => {
-    console.log(date, ' is date')
+    
     return new Promise((resolve, reject) => {
 
         mongoDB.collection("official").findOne({ sessionDate: date }, function (err, result) {

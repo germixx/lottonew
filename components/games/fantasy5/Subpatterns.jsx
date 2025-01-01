@@ -48,7 +48,7 @@ function SubPatterns(props) {
 
     return (
         <div>
-            <h4 className='text-center'>SubPatterns</h4>
+            <h4 className='text-center underline'>SubPatterns</h4>
             <div className='flex text-center'>
                 <div className='flex-1'>
                     {subpatterns}

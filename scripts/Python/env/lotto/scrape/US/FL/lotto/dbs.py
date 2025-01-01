@@ -7,9 +7,9 @@ def create_server_connection():
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            user='officialResults',
-            passwd='yyt9JUj8OOBaJp5X!',
-            database='officialResults'
+            user='Lotto',
+            passwd='UVnsX4juuWu99W3P!',
+            database='lotto'
         )
         print("MySQL Database connection successful")
     except Error as err:

@@ -50,7 +50,7 @@ function Triples(props) {
 
     return (
         <div>
-            <h4 className='text-center'>Triples</h4>
+            <h4 className='text-center underline'>Triples</h4>
             <div className='flex text-center'>
                 <div className='flex-1'>
                     {tripless}

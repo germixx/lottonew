@@ -54,7 +54,7 @@ function Doubles(props) {
 
     return (
         <div>
-            <h4 className='text-center'>Doubles</h4>
+            <h4 className='text-center underline'>Doubles</h4>
             <div className='flex text-center'>
                 <div className='flex-1'>
                     {doubless}
