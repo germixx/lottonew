@@ -8,7 +8,11 @@ import Patterns from '../../../../../components/games/fantasy5/Patterns';
 import Subpatterns from '../../../../../components/games/fantasy5/Subpatterns';
 import MongoSymbol from '../../../../../components/Profile/MongoSymbol';
 
-import { inputFocus, funcInputBlur } from '../../../../../components/functions/florida/fantasy5';
+import { 
+  inputFocus, 
+  funcInputBlur,
+  handleCheckWinningNumber
+} from '../../../../../components/functions/florida/fantasy5';
  
 import { useEffect, useState } from 'react';
 
@@ -25,8 +29,9 @@ const Fantasy5 = () => {
   const [lines, setLines] = useState([]);
   const [winningNumbers, setWinningNumbers] = useState('');
   const [winningNumbersArr, setWinningNumbersArr] = useState([]);
-  const [isPlayed, setIsPlayed] = useState(true);
+  const [chkNumberIsPlayed, setChkNumberIsPlayed] = useState('');
   const [checkSequence, setCheckSequence] = useState('');
+  const [chkNumberData, setChkNumberData] = useState('');
   const [eveSessionData, setEveSessionData] = useState('');
   const [midSessionData, setMidSessionData] = useState('');
   const [recentResults, setRecentResults] = useState('');
@@ -440,14 +445,14 @@ const Fantasy5 = () => {
                             type="name" 
                           />
                           <button 
-                            // onClick={() => handleCheckWinningNumber(checkNumbers)} 
+                            onClick={() => handleCheckWinningNumber(checkSequence, setChkNumberData, setChkNumberIsPlayed)} 
                             style={{ width: '50px', marginLeft: '5px', color: 'green', backgroundColor: 'lightgreen', borderRadius: '100px' }}>
                               ✓
                           </button>
                             <div className='mt-2'>
                               {
                                   // here show status of checked number
-                                  isPlayed === '' ? ('') : (isPlayed ? (`Was played on asdsd`) : (`Good to play`))
+                                  chkNumberIsPlayed === '' ? ('') : (chkNumberIsPlayed ? (`Was played on ${chkNumberData}`) : (`Good to play`))
                               }
                             </div>
                         </div>

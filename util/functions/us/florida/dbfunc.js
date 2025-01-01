@@ -135,6 +135,24 @@ async function getResultsByCount(session, number) {
     })
 }
 
+async function checkNumberz(checkNumber) {
+
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM evening WHERE sequence = ? ', [checkNumber], (err, rows) => {
+
+            if (err) throw err
+
+            if (rows.length < 1) {
+                resolve({ status: false })
+            } else {
+                resolve({ status: true, rows })
+            }
+
+        })
+
+    })
+}
+
 
 module.exports = { 
     selectDataByNumbMid,
@@ -143,6 +161,7 @@ module.exports = {
     selectDataByNumbEve,
     getLatestEntryEve,
     getLatestEntryMid,
-    getResultsByCount
+    getResultsByCount,
+    checkNumberz
 }
 

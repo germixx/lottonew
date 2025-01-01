@@ -439,6 +439,65 @@ const funcInputBlur = (nums) => {
     return
 }
 
+const handleCheckWinningNumber = async (checkNumbers, setchknumdata, setplayed) => {
+
+    function setResult(res) {
+        if (res !== '') {
+            setchknumdata(res)
+            setplayed(true)
+        } else {
+            setplayed(false)
+        }
+    }
+    await checkNumber(fixLine(checkNumbers), setResult)
+}
+
+const checkNumber = (number, cb) => {
+    return new Promise((resolve, reject) => {
+
+        fetch(`/api/us/florida/fantasy5/checkWinningNumber`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                number
+            })
+        }).then(res => res.json())
+            .then((json) => {
+                if (json.result.status) {
+                    cb(json.result.rows[0].date)
+                    resolve(json)
+                    return true
+                } else {
+                    cb('')
+                    resolve(false)
+                    return false
+                }
+
+            }).catch(err => {
+                throw err
+            })
+
+    }).catch(e => console.log(e))
+}
+
+function fixLine(line) {
+
+    let newSeq = []
+
+    let tmp = line.split('-')
+
+    tmp.map(e => {
+
+        let tm = e.split('')
+
+        tm[0] === '0' ? newSeq.push(tm[1]) : newSeq.push(tm.join(''))
+
+    })
+
+    return newSeq.join('-')
+}
 
 module.exports = {
     filterPlayedNumbers,
@@ -452,5 +511,6 @@ module.exports = {
     getTriples,
     getTriplesFromSingleArr,
     inputFocus,
-    funcInputBlur
+    funcInputBlur,
+    handleCheckWinningNumber
 }
