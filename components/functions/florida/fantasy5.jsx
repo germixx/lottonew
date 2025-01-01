@@ -452,6 +452,10 @@ const handleCheckWinningNumber = async (checkNumbers, setchknumdata, setplayed) 
     await checkNumber(fixLine(checkNumbers), setResult)
 }
 
+const changeDate = (d) => {
+    return new Date(d).toLocaleDateString();
+}
+
 const checkNumber = (number, cb) => {
     return new Promise((resolve, reject) => {
 
@@ -466,7 +470,7 @@ const checkNumber = (number, cb) => {
         }).then(res => res.json())
             .then((json) => {
                 if (json.result.status) {
-                    cb(json.result.rows[0].date)
+                    cb(changeDate(json.result.rows[0].date))
                     resolve(json)
                     return true
                 } else {
