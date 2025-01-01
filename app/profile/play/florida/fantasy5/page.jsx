@@ -7,6 +7,8 @@ import Triples from '../../../../../components/games/fantasy5/Triples';
 import Patterns from '../../../../../components/games/fantasy5/Patterns';
 import Subpatterns from '../../../../../components/games/fantasy5/Subpatterns';
 import MongoSymbol from '../../../../../components/Profile/MongoSymbol';
+
+import { inputFocus, funcInputBlur } from '../../../../../components/functions/florida/fantasy5';
  
 import { useEffect, useState } from 'react';
 
@@ -24,6 +26,7 @@ const Fantasy5 = () => {
   const [winningNumbers, setWinningNumbers] = useState('');
   const [winningNumbersArr, setWinningNumbersArr] = useState([]);
   const [isPlayed, setIsPlayed] = useState(true);
+  const [checkSequence, setCheckSequence] = useState('');
   const [eveSessionData, setEveSessionData] = useState('');
   const [midSessionData, setMidSessionData] = useState('');
   const [recentResults, setRecentResults] = useState('');
@@ -394,7 +397,7 @@ const Fantasy5 = () => {
                                 <button  
                                   // onClick={() => addLine()} 
                                   className='ml-2'
-                                ><svg class="h-5 w-5 text-emerald-500"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg></button>
+                                ><svg className="h-5 w-5 text-emerald-500"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg></button>
                               </label>
                               <br />
                               <label>
@@ -428,12 +431,12 @@ const Fantasy5 = () => {
                         <h5 className='text-center mb-3 mt-1 font-bold'>Check Sequence</h5>
                         <div className='text-center'>
                           <input 
-                            // value={checkNumbers} 
+                            value={checkSequence} 
                             className='w-40 mr-2 border-2 border-solid border-gray-300'
                             maxLength={10} 
-                            // onChange={(e) => setCheckNumber(e.target.value)} 
-                            // onBlur={(e) => setCheckNumber(LFUNCTIONS.funcInputBlur(checkNumbers))} 
-                            // onFocus={(e) => inputFocus()} 
+                            onChange={(e) => setCheckSequence(e.target.value)} 
+                            onBlur={(e) => setCheckSequence(funcInputBlur(checkSequence))} 
+                            onFocus={(e) => inputFocus(checkSequence, setCheckSequence)} 
                             type="name" 
                           />
                           <button 

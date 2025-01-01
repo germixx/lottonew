@@ -401,6 +401,45 @@ const getTriplesFromSingleArr = (seqArr) => {
     return arr
 }
 
+const inputFocus = (chkseq, setchkseq) => {
+    
+    let ff = chkseq.split('-')
+
+    if (ff[0] === '') {
+        return
+    } else {
+        setchkseq(ff[0] + ff[1] + ff[2] + ff[3] + ff[4])
+    }
+
+}
+
+const funcInputBlur = (nums) => {
+
+    let arr = []
+
+    if (nums.length !== 0) {
+
+        for (let i = 0; i < nums.length; i++) {
+            arr.push(nums[i])
+        }
+
+        if (arr[0] === '-' || arr.length == 0) {
+            return
+        } else {
+            arr.splice(2, 0, '-')
+            arr.splice(5, 0, '-')
+            arr.splice(8, 0, '-')
+            arr.splice(11, 0, '-')
+            return arr.join('')
+        }
+    } else {
+        return ""
+    }
+
+    return
+}
+
+
 module.exports = {
     filterPlayedNumbers,
     getPatterns,
@@ -411,5 +450,7 @@ module.exports = {
     getDoubles,
     getDoublesFromSingleArr,
     getTriples,
-    getTriplesFromSingleArr
+    getTriplesFromSingleArr,
+    inputFocus,
+    funcInputBlur
 }
