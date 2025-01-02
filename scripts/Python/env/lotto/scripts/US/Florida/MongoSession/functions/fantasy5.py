@@ -105,6 +105,8 @@ def fantGetDailyResult(prevDate):
     DayNumbers = json.loads(checkAgainstPrevNums(Day_File))
     EveNumbers = json.loads(checkAgainstPrevNums(Eve_File))
 
+    print(sqlformat, DayNumbers['date'], EveNumbers['date'], 'are dates')
+
     # Check if data retrieved dates are equal to the previous dates
     if sqlformat == DayNumbers["date"] and sqlformat == EveNumbers["date"]:
         return [ DayNumbers, EveNumbers ]
