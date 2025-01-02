@@ -11,7 +11,8 @@ import MongoSymbol from '../../../../../components/Profile/MongoSymbol';
 import { 
   inputFocus, 
   funcInputBlur,
-  handleCheckWinningNumber
+  handleCheckWinningNumber,
+  addLine
 } from '../../../../../components/functions/florida/fantasy5';
  
 import { useEffect, useState } from 'react';
@@ -26,7 +27,6 @@ const Fantasy5 = () => {
   const [currentOverdue, setCurrentOverdue] = useState([]);
   const [currentRepeat, setCurrentRepeat] = useState([]);
   const [predictions, setPredictions] = useState([]);
-  const [lines, setLines] = useState([]);
   const [winningNumbers, setWinningNumbers] = useState('');
   const [winningNumbersArr, setWinningNumbersArr] = useState([]);
   const [chkNumberIsPlayed, setChkNumberIsPlayed] = useState('');
@@ -41,6 +41,9 @@ const Fantasy5 = () => {
   const [showSubPatterns, setShowSubPatterns] = useState(false);
   const [showDoubles, setShowDoubles] = useState(false);
   const [showTriples, setShowTriples] = useState(false);
+  const [predictLine, setPredictLine] = useState('');
+  const [quickPick, setQuickPick] = useState(false);
+  const [played, setPlayed] = useState(false);
 
   const getData = (date) => {
     fetch(`/api/us/florida/officialSessionData`, {
@@ -67,7 +70,6 @@ const Fantasy5 = () => {
           setMidSessionData(json.ress.data.games.fantasy5.midday);
           setEveSessionData(json.ress.data.games.fantasy5.eve);
           setPredictions(json.ress.data.games.fantasy5.eve.predictions);
-          setLines(json.ress.data.games.fantasy5.eve.predictions);
           setSession('eve');
           setIsLoading(false);
           setDataDisplayed(true);
@@ -178,7 +180,6 @@ const Fantasy5 = () => {
       setWinningNumbersArr(eveSessionData.winningNumbers.split('-'));
       setRecentResults(eveSessionData.recentResults);
       setPredictions(eveSessionData.predictions);
-      setLines(eveSessionData.predictions);
       setSession('eve');
     }
 
@@ -193,10 +194,17 @@ const Fantasy5 = () => {
       setWinningNumbersArr(midSessionData.winningNumbers.split('-'));
       setRecentResults(midSessionData.recentResults);
       setPredictions(midSessionData.predictions);
-      setLines(midSessionData.predictions);
       setSession('mid');
     }
 
+  }
+
+  const toggleQuickPick = () => {
+    setQuickPick(!quickPick)
+  }
+
+  const togglePlayed = () => {
+    setPlayed(!played)
   }
 
   // Map recent result
@@ -214,7 +222,7 @@ const Fantasy5 = () => {
     })
   }
 
-  const mapLines = lines.map((e) => {
+  const mapLines = predictions.map((e) => {
 
     let temp = e.sequence.split('-');
 
@@ -249,7 +257,7 @@ const Fantasy5 = () => {
                     <span onClick={() => plus1Day()} className='mr-6 ml-1 font-bold mb-6 text-2xl hover:text-accent hover:cursor-pointer'>+</span>
                   </div>
                 </div>
-                <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 h-20 mb-4">
+                <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 h-20 mb-3">
                   <div className="text-center leading-[3rem] sm:text-sm font-semibold">Winning Numbers</div>
                   <div className='text-center sm:text-lg text-2xl font-bold'>{winningNumbers}</div>
                 </div>
@@ -386,29 +394,29 @@ const Fantasy5 = () => {
                       
                 </div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-                    <div className="items-center  border-2 border-dashed border-gray-300 dark:border-gray-600 mb-4 h-32">
+                    <div className="items-center  border-2 border-dashed border-gray-300 dark:border-gray-600 h-32">
                         <h5 className='text-center mb-2 mt-2 font-bold'>Add Prediction</h5>
                             <div className='text-center items-center'>
                               <input 
                                 className='mb-2 border-2 border-solid border-gray-300'
-                                // value={guessLine1} 
-                                // onChange={(e) => adjustText(e.target.value, 1)} 
+                                value={predictLine} 
+                                onChange={(e) => setPredictLine(e.target.value)} 
                                 maxLength={10} 
-                                // onBlur={(e) => inputBlur(1)} 
-                                // onFocus={(e) => inputFocus1(1)} 
+                                onBlur={(e) => setPredictLine(funcInputBlur(predictLine))} 
+                                onFocus={(e) => inputFocus(predictLine, setPredictLine)} 
                                 type="text"
                               />                               
                               <label>
                                 <button  
-                                  // onClick={() => addLine()} 
+                                  onClick={() => addLine(predictLine, predictions, quickPick, played, setPredictLine, setQuickPick, setPlayed, sessionDate, session)} 
                                   className='ml-2'
                                 ><svg className="h-5 w-5 text-emerald-500"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg></button>
                               </label>
                               <br />
                               <label>
                                 <input 
-                                  // checked={played} 
-                                  // onChange={() => togglePlayed()} 
+                                  checked={played} 
+                                  onChange={() => togglePlayed()} 
                                   className=''
                                   type="checkbox" 
                                 /> 
@@ -419,8 +427,8 @@ const Fantasy5 = () => {
                               </label>
                               <label>
                                   <input 
-                                    // checked={quickPick} 
-                                    // onChange={() => toggleQuickPick()} 
+                                    checked={quickPick} 
+                                    onChange={() => toggleQuickPick()} 
                                     className='mr-1'
                                     type="checkbox" 
                                   /> 
@@ -432,7 +440,7 @@ const Fantasy5 = () => {
                                   <br />
                             </div>
                     </div>
-                    <div className="items-center border-2 border-dashed border-black-500 dark:border-gray-600 mb-4 h-32">
+                    <div className="items-center border-2 border-dashed border-black-500 dark:border-gray-600 h-32">
                         <h5 className='text-center mb-3 mt-1 font-bold'>Check Sequence</h5>
                         <div className='text-center'>
                           <input 

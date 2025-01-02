@@ -276,7 +276,6 @@ const getDoubles = async (results) => {
     }).catch(e => console.log(e))
 }
 
-
 const getDoublesFromSingleArr = (seqArr) => {
 
     let arr = []
@@ -316,7 +315,6 @@ const adjustPattern = (num1, num2) => {
 
     return MIN + "-" + MAX
 }
-
 
 const getTriples = async (results) => {
     return new Promise((resolve, reject) => {
@@ -401,14 +399,14 @@ const getTriplesFromSingleArr = (seqArr) => {
     return arr
 }
 
-const inputFocus = (chkseq, setchkseq) => {
+const inputFocus = (chkseq, cb) => {
     
     let ff = chkseq.split('-')
 
     if (ff[0] === '') {
         return
     } else {
-        setchkseq(ff[0] + ff[1] + ff[2] + ff[3] + ff[4])
+        cb(ff[0] + ff[1] + ff[2] + ff[3] + ff[4])
     }
 
 }
@@ -503,6 +501,59 @@ function fixLine(line) {
     return newSeq.join('-')
 }
 
+const addLine = (line, lines, quickPick, played, cb, setquikpik, setplayed, currentDateSelected, session) => {
+
+    let tmp = lines
+
+    let tmpObj = {
+        "sequence": fixLine(line),
+        played,
+        quickPick, 
+    }
+
+    tmp.push(tmpObj)
+
+    addPlayLine(tmp, currentDateSelected, session)
+
+    cb('')
+    setquikpik(false)
+    setplayed(false)
+}
+
+const addPlayLine = (newLines, dayte, session) => {
+
+    return new Promise((resolve, reject) => {
+        console.log(newLines, dayte)
+        fetch(`/api/us/florida/fantasy5/addPlayLine`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                newLines,
+                dayte,
+                session
+            })
+        }).then(res => res.json())
+            .then((json) => {
+
+                if (json.status) {
+
+                    resolve(true)
+                    return true
+                } else {
+
+                    resolve(false)
+                    return false
+                }
+
+            }).catch(err => {
+                throw err
+            })
+
+    }).catch(e => console.log(e))
+}
+
 module.exports = {
     filterPlayedNumbers,
     getPatterns,
@@ -516,5 +567,6 @@ module.exports = {
     getTriplesFromSingleArr,
     inputFocus,
     funcInputBlur,
+    addLine,
     handleCheckWinningNumber
 }

@@ -70,7 +70,7 @@ if(dayOfWeek == 'Monday'):
     'sessionDate': todaysDate,
         'games': {
             'fantasy5': fantasy5(),
-            'powerball': powerball(),
+            # 'powerball': powerball(),
         }
     }
 
@@ -89,7 +89,7 @@ if(dayOfWeek == 'Wednesday'):
     'sessionDate': todaysDate,
         'games': {
             'fantasy5': fantasy5(),
-            'powerball': powerball(),
+            # 'powerball': powerball(),
         }
     }
 
@@ -117,7 +117,7 @@ if(dayOfWeek == 'Saturday'):
     'sessionDate': todaysDate,
         'games': {
             'fantasy5': fantasy5(),
-            'powerball': powerball(),
+            # 'powerball': powerball(),
         }
     }
 
