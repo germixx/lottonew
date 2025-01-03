@@ -39,7 +39,7 @@ def previousDataDays(previousDay, previousDate):
 
 
     if(previousDay == 'Thursday'):
-
+        
         fantasyData = fantGetDailyResult(previousDate)
 
         return {

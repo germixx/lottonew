@@ -91,7 +91,6 @@ def fantasy5():
             }
         }
 
-
 def fantGetDailyResult(prevDate):
 
     # Convert xx/xx/xxxx date into SQL formate

@@ -26,7 +26,9 @@ dayOfWeek = current_time.strftime('%A')
 
 ####### Previous Day #########
 # Get yesterdays date & day of the week
-yesterdaysDate = (datetime.now() - timedelta(days=1)).strftime('%-m/%-d/%Y')
+yesterdaysDateMongo = (datetime.now() - timedelta(days=1)).strftime('%-m/%-d/%Y')
+yesterdaysDate = (datetime.now() - timedelta(days=1)).strftime('%m/%d/%Y')
+
 yesterdayDayOfWeek = getYestDay(dayOfWeek)
 
 previousDayGameData = []
@@ -54,7 +56,7 @@ if (isinstance(ff, dict)):
 else:
    
    # xsasdasd=0
-   yester = db.official.find_one({'sessionDate': yesterdaysDate }) 
+   yester = db.official.find_one({'sessionDate': yesterdaysDateMongo }) 
 
    for key in yester['games']:
        
