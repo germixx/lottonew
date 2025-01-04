@@ -62,7 +62,7 @@ else:
        
        previousDayGameData.append(gamerfunc)
        
-   sortMongo(previousDayGameData, yesterdaysDate)
+   sortMongo(previousDayGameData, yesterdaysDateMongo)
 
 
 # Setting up current day session

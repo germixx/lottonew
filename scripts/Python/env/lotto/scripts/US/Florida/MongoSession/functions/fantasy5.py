@@ -117,7 +117,6 @@ def fantGetDailyResult(prevDate):
     #     raise TypeError("ERROR: Dates do not match")
 
 
-    
 def checkAgainstPrevNums(file):
         file1 = open(file, 'r')
         return file1.read()

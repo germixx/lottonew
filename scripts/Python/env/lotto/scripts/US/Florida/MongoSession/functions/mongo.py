@@ -36,7 +36,7 @@ def sortMongo(data, date):
         #     db.official.update_one({"sessionDate": date}, { "$set" : { "games.pick5.eve.winningNumbers": tmp5['eve']['winningNumbers']}}, upsert=True)
         
         if(xx.get('fantasy5')):
-        
+            print(date, ' asdjadkjadljlaksjd')
             tmpf5 = xx.get('fantasy5')
             db.official.update_one({"sessionDate": date}, { "$set" : { "games.fantasy5.midday.winningNumbers": tmpf5['midday']['sequence']}}, upsert=False)
             db.official.update_one({"sessionDate": date}, { "$set" : { "games.fantasy5.eve.winningNumbers": tmpf5['evening']['sequence']}}, upsert=False)
